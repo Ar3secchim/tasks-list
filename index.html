@@ -17,19 +17,20 @@
         <h1>Adicionar uma tarefa</h1>
       </div>
 
-      <div class="input-tasks">
-        <input type="text" placeholder="Descreva a tarefa">
-        <button onclick= "newTasks()" id="button-submit" type="submit"> Criar tarefa</button>
-      </div>
+      <form class="input-tasks">
+        <input type="text" placeholder="Descreva a tarefa" value="" id="stringTask" name="stringTask">
+
+        <button onclick="newTask()" id="btn" type="submit"> Criar tarefa</button>
+      </form>
     </section>
 
     <section class="board-task">
       <img src="/assets/board.svg" alt="icone ao lado do texto para ilustra um quadro" >
       <h1>Quadro de tarefas</h1>
 
-      <ul class="list-tasks">
-        <li></li>
-      </ul>
+      <div id="list-task">
+        
+      </div>
     </section>
   </main>
 <script src="/index.js"></script>
