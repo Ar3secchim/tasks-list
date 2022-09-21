@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color:rgba(245, 244, 246, 1);
+}
+
+main{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+h1{
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+
+.add-tasks, .board-task{
+  width: 640px;
+}
+
+.add-tasks{
+  margin: 72px 0px;
+}
+
+.title-tasks{
+  display: flex;
+  gap: 1rem;
+  margin: 24px 0px;
+}
+
+.input-tasks input{
+  width: 472px ;
+  background-color: white;
+  padding: 16px;
+
+  border: 1px solid #D6D4E2;
+  border-radius: 16px;
+
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.input-tasks input:focus{
+  border: 1px solid #02b553;
+}
+
+.input-tasks button{
+  background-color: #02b553;
+  padding: 14px;
+  color: white;
+
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  border: 1px solid #D6D4E2;
+  border-radius: 16px;
+
+  margin-left: 16px;
+}
+
+.board-task{
+  display: flex;
+  gap: 1rem;
+}

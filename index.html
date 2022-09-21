@@ -5,24 +5,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+
+  <link rel="stylesheet" href="/style.css">
   <title>Task list</title>
 </head>
 <body>
-  <section class="add-tasks">
-    <div>
-      <img src="/assets/tasks.svg" alt="icone ao lado do texto para ilustrar adição de tarefas">
-      <h1>Adicionar uma tarefa</h1>
-    </div>
+  <main>
+    <section class="add-tasks">
+      <div class="title-tasks">
+        <img src="/assets/tasks.svg" alt="icone ao lado do texto para ilustrar adição de tarefas">
+        <h1>Adicionar uma tarefa</h1>
+      </div>
 
-    <div>
-      <input type="text">
-      <button>Criar tarefa</button>
-    </div>
-  </section>
+      <div class="input-tasks">
+        <input type="text" placeholder="Descreva a tarefa">
+        <button onclick= "newTasks()" id="button-submit" type="submit"> Criar tarefa</button>
+      </div>
+    </section>
 
-  <section class="board-task">
-    <img src="/assets/board.svg" alt="icone ao lado do texto para ilustra um quadro" >
-    <h1>Quadro de tarefas</h1>
-  </section>
+    <section class="board-task">
+      <img src="/assets/board.svg" alt="icone ao lado do texto para ilustra um quadro" >
+      <h1>Quadro de tarefas</h1>
+
+      <ul class="list-tasks">
+        <li></li>
+      </ul>
+    </section>
+  </main>
+<script src="/index.js"></script>
 </body>
 </html>
