@@ -32,7 +32,7 @@ h1{
 }
 
 .add-tasks{
-  margin: 72px 0px;
+  margin: 72px 0px 36px 0px;
 }
 
 .title-tasks{
@@ -56,13 +56,9 @@ h1{
   line-height: 24px;
 }
 
-.input-tasks input:focus{
-  border: 1px solid #02b553;
-}
-
 .input-tasks button{
   background-color: #02b553;
-  padding: 14px;
+  padding: 14px 32px;
   color: white;
 
   font-family: 'Space Grotesk';
@@ -74,10 +70,43 @@ h1{
   border: 1px solid #D6D4E2;
   border-radius: 16px;
 
-  margin-left: 16px;
 }
 
 .board-task{
   display: flex;
   gap: 1rem;
+  flex-direction: column;
 }
+
+.container-list-tasks{
+    display : flex;
+    background-Color : white;
+    justify-Content : space-between;
+    border: #D6D4E2 solid 1px;
+    border-Radius : 24px;
+    margin-Bottom : 24px;
+    padding: 16px;
+  }
+
+  .tasks-name {
+    display: flex;
+  }
+
+  .tasks-name h2{
+    margin-left: 24px;
+  }
+
+.error{
+  border: 2px solid red !important;
+}
+
+.check{
+  border: 2px solid green !important;
+}
+
+.check h2{
+  border: 2px solid rgba(16, 16, 16, 0) !important;
+  color: green;
+  text-decoration: line-through;
+}
+

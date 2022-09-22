@@ -9,41 +9,83 @@ btn.onclick = function (){
   if(stringInput){
     let task = {
       name: stringInput,
-      checked: false
+      checked: false,
+      delete: false
     }
     tasksList.push(task)
-    saveListTask(tasksList)
+    saveListTask(task)
+
+  //remove error
+    Input.classList.remove("error")
+    console.log(tasksList)
   }else{
-    // colocar mensagem de erro na inferface
-    console.log("adiciona alguma tarefa")
+
+    const InputError =  () => {
+      const error = document.querySelector("input")
+      error.classList.add("error")
+    }
+    InputError()
   }
-  console.log(tasksList)
 }
 
-function saveListTask (tasksList){
-  for (let index = 0; index < tasksList.length; index++) {
-    const list = tasksList[index];
+const divList = document.createElement("div")
+divList.classList.add("list-task")
 
-// correção para adicionar nas divs
-    const divList = document.createElement("div")
-    divList.classList.add("list-task")
+const boardTask = document.querySelector(".board-task")
+boardTask.appendChild(divList)
 
+
+function saveListTask (task){
+  // create container tasks
+    const containerTasks = document.createElement("div")
+    containerTasks.classList.add("container-list-tasks")
+    divList.appendChild(containerTasks)
+
+  // create container name and ckecked
+    const containerTitle = document.createElement("span")
+    containerTitle.classList.add("tasks-name")
+    containerTasks.appendChild(containerTitle)
+
+  // create container img ckecked
+    const checkedTaskImg = document.createElement('img')
+    checkedTaskImg.src = "/assets/checked.svg"
+    containerTitle.appendChild(checkedTaskImg)
+
+  // create container name h2
     const titleTask = document.createElement("h2")
-    titleTask.innerText = tasksList[index].name
-    divList.appendChild(titleTask)
+    titleTask.innerText = task.name
+    containerTitle.appendChild(titleTask)
 
-    const checkedTask = document.createElement('img')
-    checkedTask.src = "/assets/checked.svg"
-    divList.insertBefore(checkedTask, titleTask)
+  // create container img remove
+    const removeTaskImg = document.createElement("img")
+    removeTaskImg.src = "/assets/remove.svg"
+    removeTaskImg.classList.add("btn-remove")
+    containerTasks.appendChild(removeTaskImg)
 
-    const removeTask = document.createElement("img")
-    removeTask.src = "/assets/remove.svg"
-    divList.appendChild(removeTask)
+  // remove task
+    removeTaskImg.addEventListener("click", (task) =>{
+      task.delete = true
 
-    // divList.style.display
-    console.log(divList)
+      if(task.delete === true){
+        containerTasks.classList.add('delete')
+        const remove = document.querySelector(".delete")
+        remove.parentNode.removeChild(containerTasks)
+        tasksList.pop(task)
+      }
+    })
+
+  // task checked
+  checkedTaskImg.addEventListener("click", () =>{
+    task.checked = true
+    if(task.checked === true){
+      containerTasks.classList.add('check')
+      titleTask.classList.add('check')
+    }
+  })
+
+    // clear input
+    Input.value = ""
   }
-}
 
 // prevenindo comportamento padrão do evento
 let form = document.querySelector('form')
