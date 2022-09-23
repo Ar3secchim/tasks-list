@@ -99,6 +99,9 @@ h1{
 .error{
   border: 2px solid red !important;
 }
+.error::placeholder{
+  color: red !important;
+}
 
 .check{
   border: 2px solid green !important;

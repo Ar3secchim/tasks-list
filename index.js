@@ -1,14 +1,14 @@
-let Input = document.querySelector("#stringTask")
+let input = document.querySelector("#stringTask")
 let btn = document.querySelector("#btn")
 
 let tasksList = []
 
 btn.onclick = function (){
-  let stringInput = Input.value
+  let inputValue = input.value
 
-  if(stringInput){
+  if(inputValue){
     let task = {
-      name: stringInput,
+      name: inputValue,
       checked: false,
       delete: false
     }
@@ -16,7 +16,7 @@ btn.onclick = function (){
     saveListTask(task)
 
   //remove error
-    Input.classList.remove("error")
+    input.classList.remove("error")
     console.log(tasksList)
   }else{
 
@@ -47,7 +47,7 @@ function saveListTask (task){
     containerTasks.appendChild(containerTitle)
 
   // create container img ckecked
-    const checkedTaskImg = document.createElement('img')
+    const checkedTaskImg = document.createElement("img")
     checkedTaskImg.src = "/assets/checked.svg"
     containerTitle.appendChild(checkedTaskImg)
 
@@ -75,19 +75,18 @@ function saveListTask (task){
     })
 
   // task checked
+
   checkedTaskImg.addEventListener("click", () =>{
     task.checked = true
-    if(task.checked === true){
-      containerTasks.classList.add('check')
-      titleTask.classList.add('check')
-    }
+    containerTasks.classList.toggle('check')
+    titleTask.classList.toggle('check')
   })
 
     // clear input
-    Input.value = ""
+    input.value = ""
   }
 
-// prevenindo comportamento padrão do evento
+//preventing default event behavior
 let form = document.querySelector('form')
 form.addEventListener('submit', event =>{
   event.preventDefault()
