@@ -1,7 +1,15 @@
 let input = document.querySelector("#stringTask")
 let btn = document.querySelector("#btn")
 
-let tasksList = []
+// add tasks
+window.addEventListener('load', () => {
+  tasksList = JSON.parse(localStorage.getItem('list')) || []
+
+  for (let index = 0; index < tasksList.length; index++) {
+    const element = tasksList[index];
+    saveListTask(element)
+  }
+})
 
 btn.onclick = function (){
   let inputValue = input.value
@@ -14,12 +22,13 @@ btn.onclick = function (){
     }
     tasksList.push(task)
     saveListTask(task)
+    // add localStorage
+    localStorage.setItem('list', JSON.stringify(tasksList))
 
-  //remove error
+    //remove error
     input.classList.remove("error")
-    console.log(tasksList)
-  }else{
 
+  }else{
     const InputError =  () => {
       const error = document.querySelector("input")
       error.classList.add("error")
@@ -33,7 +42,6 @@ divList.classList.add("list-task")
 
 const boardTask = document.querySelector(".board-task")
 boardTask.appendChild(divList)
-
 
 function saveListTask (task){
   // create container tasks
@@ -65,25 +73,30 @@ function saveListTask (task){
   // remove task
     removeTaskImg.addEventListener("click", (task) =>{
       task.delete = true
-
-      if(task.delete === true){
+      if(task.delete){
+        // add class and remove
         containerTasks.classList.add('delete')
         const remove = document.querySelector(".delete")
         remove.parentNode.removeChild(containerTasks)
+
+        // remove array
         tasksList.pop(task)
+
+         // add localStorage
+        localStorage.setItem('list', JSON.stringify(tasksList))
       }
     })
 
   // task checked
-
   checkedTaskImg.addEventListener("click", () =>{
     task.checked = true
     containerTasks.classList.toggle('check')
     titleTask.classList.toggle('check')
+    localStorage.setItem('list', JSON.stringify(tasksList))
   })
 
-    // clear input
-    input.value = ""
+  // clear input
+  input.value = ""
   }
 
 //preventing default event behavior
