@@ -1,9 +1,9 @@
 let input = document.querySelector("#stringTask")
 let btn = document.querySelector("#btn")
 
-// add tasks
+// get tasks localStorage
 window.addEventListener('load', () => {
-  tasksList = JSON.parse(localStorage.getItem('list')) || []
+  tasksList = [] || JSON.parse(localStorage.getItem('list'))
 
   for (let index = 0; index < tasksList.length; index++) {
     const element = tasksList[index];
@@ -11,6 +11,7 @@ window.addEventListener('load', () => {
   }
 })
 
+// add tasks
 btn.onclick = function (){
   let inputValue = input.value
 
@@ -20,8 +21,10 @@ btn.onclick = function (){
       checked: false,
       delete: false
     }
-    tasksList.push(task)
+
     saveListTask(task)
+    tasksList.push(task)
+
     // add localStorage
     localStorage.setItem('list', JSON.stringify(tasksList))
 
@@ -36,13 +39,14 @@ btn.onclick = function (){
     InputError()
   }
 }
-
+// create section tasks
 const divList = document.createElement("div")
 divList.classList.add("list-task")
 
 const boardTask = document.querySelector(".board-task")
 boardTask.appendChild(divList)
 
+// create task on screen
 function saveListTask (task){
   // create container tasks
     const containerTasks = document.createElement("div")
@@ -79,7 +83,7 @@ function saveListTask (task){
         const remove = document.querySelector(".delete")
         remove.parentNode.removeChild(containerTasks)
 
-        // remove array
+        // remove task array
         tasksList.pop(task)
 
          // add localStorage
