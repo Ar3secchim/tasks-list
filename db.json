@@ -1,13 +1,13 @@
-[
-  {
-    "name": "inputValue",
-    "checked": false,
-    "delete": false
-  },
-  {
-    "name": "inputValue",
-    "checked": false,
-    "delete": false
+{
+  "todos": [
+    { "id": 1, "name": "inputValue","checked": false,"delete": false },
+    { "id": 2,  "name": "inputValue","checked": false,"delete": false },
+    { "id": 3,  "name": "inputValue","checked": false,"delete": false }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "profile": {
+    "name": "ar3sechim"
   }
-
-]
+}
