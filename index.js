@@ -1,36 +1,41 @@
 let input = document.querySelector("#stringTask")
 let btn = document.querySelector("#btn")
 
-// get tasks localStorage
+// get tasks placeholder
 window.addEventListener('load', () => {
-  tasksList = [] || JSON.parse(localStorage.getItem('list'))
-
-  for (let index = 0; index < tasksList.length; index++) {
-    const element = tasksList[index];
-    saveListTask(element)
-  }
+  tasksList = []
+    fetch('https://my-json-server.typicode.com/Ar3secchim/tasks-list/todos')
+    .then((response) => response.json())
+    .then((tasksList) => {
+      for (let index = 0; index < tasksList.length; index++) {
+        const element = tasksList[index];
+        saveListTask(element)
+      }
+    })
 })
-
+``
 // add tasks
 btn.onclick = function (){
   let inputValue = input.value
 
   if(inputValue){
-    let task = {
+    let data = {
       name: inputValue,
       checked: false,
       delete: false
     }
-
-    saveListTask(task)
-    tasksList.push(task)
-
-    // add localStorage
-    localStorage.setItem('list', JSON.stringify(tasksList))
-
+    fetch('https://my-json-server.typicode.com/Ar3secchim/tasks-list/todos', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => saveListTask(data));
+    tasksList.push(data)
     //remove error
     input.classList.remove("error")
-
   }else{
     const InputError =  () => {
       const error = document.querySelector("input")
@@ -47,7 +52,7 @@ const boardTask = document.querySelector(".board-task")
 boardTask.appendChild(divList)
 
 // create task on screen
-function saveListTask (task){
+function saveListTask (data){
   // create container tasks
     const containerTasks = document.createElement("div")
     containerTasks.classList.add("container-list-tasks")
@@ -65,7 +70,7 @@ function saveListTask (task){
 
   // create container name h2
     const titleTask = document.createElement("h2")
-    titleTask.innerText = task.name
+    titleTask.innerText = data.name
     containerTitle.appendChild(titleTask)
 
   // create container img remove
@@ -75,28 +80,24 @@ function saveListTask (task){
     containerTasks.appendChild(removeTaskImg)
 
   // remove task
-    removeTaskImg.addEventListener("click", (task) =>{
-      task.delete = true
-      if(task.delete){
+    removeTaskImg.addEventListener("click", (data) =>{
+      data.delete = true
+      if(data.delete){
         // add class and remove
         containerTasks.classList.add('delete')
         const remove = document.querySelector(".delete")
         remove.parentNode.removeChild(containerTasks)
 
-        // remove task array
-        tasksList.pop(task)
-
-         // add localStorage
-        localStorage.setItem('list', JSON.stringify(tasksList))
       }
     })
 
   // task checked
   checkedTaskImg.addEventListener("click", () =>{
-    task.checked = true
+    data.checked = true
     containerTasks.classList.toggle('check')
     titleTask.classList.toggle('check')
-    localStorage.setItem('list', JSON.stringify(tasksList))
+    // update placeholder
+
   })
 
   // clear input
