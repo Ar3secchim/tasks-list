@@ -3,7 +3,7 @@ let btn = document.querySelector("#btn")
 
 // get tasks placeholder
 window.addEventListener('load', () => {
-  tasksList = []
+  tasksList = [] || JSON.stringify(divList)
     fetch('https://my-json-server.typicode.com/Ar3secchim/tasks-list/todos')
     .then((response) => response.json())
     .then((tasksList) => {
@@ -97,7 +97,7 @@ function saveListTask (data){
     containerTasks.classList.toggle('check')
     titleTask.classList.toggle('check')
     // update placeholder
-    
+
   })
 
   // clear input
