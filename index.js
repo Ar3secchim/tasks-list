@@ -97,7 +97,7 @@ function saveListTask (data){
     containerTasks.classList.toggle('check')
     titleTask.classList.toggle('check')
     // update placeholder
-
+    
   })
 
   // clear input
