@@ -13,7 +13,6 @@ window.addEventListener('load', () => {
       }
     })
 })
-``
 // add tasks
 btn.onclick = function (){
   let inputValue = input.value
@@ -97,7 +96,7 @@ function saveListTask (data){
     containerTasks.classList.toggle('check')
     titleTask.classList.toggle('check')
     // update placeholder
-    
+
   })
 
   // clear input
