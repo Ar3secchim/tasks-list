@@ -3,7 +3,7 @@ let btn = document.querySelector("#btn")
 
 // get tasks localStorage
 window.addEventListener('load', () => {
-  tasksList = [] || JSON.parse(localStorage.getItem('list'))
+  tasksList = JSON.parse(localStorage.getItem('list'))
 
   for (let index = 0; index < tasksList.length; index++) {
     const element = tasksList[index];
@@ -39,6 +39,8 @@ btn.onclick = function (){
     InputError()
   }
 }
+
+
 // create section tasks
 const divList = document.createElement("div")
 divList.classList.add("list-task")
@@ -59,8 +61,8 @@ function saveListTask (task){
     containerTasks.appendChild(containerTitle)
 
   // create container img ckecked
-    const checkedTaskImg = document.createElement("img")
-    checkedTaskImg.src = "/assets/checked.svg"
+    const checkedTaskImg = document.createElement("button")
+    checkedTaskImg.setAttribute('class', 'check')
     containerTitle.appendChild(checkedTaskImg)
 
   // create container name h2
@@ -69,9 +71,8 @@ function saveListTask (task){
     containerTitle.appendChild(titleTask)
 
   // create container img remove
-    const removeTaskImg = document.createElement("img")
-    removeTaskImg.src = "/assets/remove.svg"
-    removeTaskImg.classList.add("btn-remove")
+    const removeTaskImg = document.createElement("button")
+    removeTaskImg.classList.add("remove")
     containerTasks.appendChild(removeTaskImg)
 
   // remove task
@@ -94,14 +95,36 @@ function saveListTask (task){
   // task checked
   checkedTaskImg.addEventListener("click", () =>{
     task.checked = true
-    containerTasks.classList.toggle('check')
-    titleTask.classList.toggle('check')
+    containerTasks.classList.toggle('check-text')
+    titleTask.classList.toggle('check-text')
+    checkedTaskImg.classList.toggle('check-img')
+
     localStorage.setItem('list', JSON.stringify(tasksList))
   })
 
   // clear input
   input.value = ""
   }
+
+  // function loadChecked(data){
+  //   const container = document.getElementsByClassName(data.id)
+
+  //   for(let task of container){
+  //       const classContainer = task.classList[0]
+  //       if(task.getAttribute('checked') === 'true'){
+  //           const btnChecked = task.querySelector('#checke')
+  //           const textTask = task.querySelector('p')
+
+  //           task.setAttribute('class', `${classContainer} task_container taskIsChecked`)
+
+  //           btnChecked.setAttribute('id','unCheck')
+  //           btnChecked.setAttribute('class','btn-check')
+
+  //           textTask.setAttribute('class', '')
+  //       }
+
+  //   }
+  // }
 
 //preventing default event behavior
 let form = document.querySelector('form')
