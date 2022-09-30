@@ -1,40 +1,35 @@
 let input = document.querySelector("#stringTask")
 let btn = document.querySelector("#btn")
 
-// get tasks placeholder
+// get tasks localStorage
 window.addEventListener('load', () => {
-  tasksList = []
-    fetch('https://my-json-server.typicode.com/Ar3secchim/tasks-list/todos')
-    .then((response) => response.json())
-    .then((tasksList) => {
-      for (let index = 0; index < tasksList.length; index++) {
-        const element = tasksList[index];
-        saveListTask(element)
-      }
-    })
+  tasksList = JSON.parse(localStorage.getItem('list'))
+
+  for (let index = 0; index < tasksList.length; index++) {
+    const element = tasksList[index];
+    saveListTask(element)
+  }
 })
 // add tasks
 btn.onclick = function (){
   let inputValue = input.value
 
   if(inputValue){
-    let data = {
+    let task = {
       name: inputValue,
       checked: false,
       delete: false
     }
-    fetch('https://my-json-server.typicode.com/Ar3secchim/tasks-list/todos', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => saveListTask(data));
-    tasksList.push(data)
+
+    saveListTask(task)
+    tasksList.push(task)
+
+    // add localStorage
+    localStorage.setItem('list', JSON.stringify(tasksList))
+
     //remove error
     input.classList.remove("error")
+
   }else{
     const InputError =  () => {
       const error = document.querySelector("input")
@@ -43,6 +38,8 @@ btn.onclick = function (){
     InputError()
   }
 }
+
+
 // create section tasks
 const divList = document.createElement("div")
 divList.classList.add("list-task")
@@ -51,7 +48,7 @@ const boardTask = document.querySelector(".board-task")
 boardTask.appendChild(divList)
 
 // create task on screen
-function saveListTask (data){
+function saveListTask (task){
   // create container tasks
     const containerTasks = document.createElement("div")
     containerTasks.classList.add("container-list-tasks")
@@ -63,45 +60,70 @@ function saveListTask (data){
     containerTasks.appendChild(containerTitle)
 
   // create container img ckecked
-    const checkedTaskImg = document.createElement("img")
-    checkedTaskImg.src = "/assets/checked.svg"
+    const checkedTaskImg = document.createElement("button")
+    checkedTaskImg.setAttribute('class', 'check')
     containerTitle.appendChild(checkedTaskImg)
 
   // create container name h2
     const titleTask = document.createElement("h2")
-    titleTask.innerText = data.name
+    titleTask.innerText = task.name
     containerTitle.appendChild(titleTask)
 
   // create container img remove
-    const removeTaskImg = document.createElement("img")
-    removeTaskImg.src = "/assets/remove.svg"
-    removeTaskImg.classList.add("btn-remove")
+    const removeTaskImg = document.createElement("button")
+    removeTaskImg.classList.add("remove")
     containerTasks.appendChild(removeTaskImg)
 
   // remove task
-    removeTaskImg.addEventListener("click", (data) =>{
-      data.delete = true
-      if(data.delete){
+    removeTaskImg.addEventListener("click", (task) =>{
+      task.delete = true
+      if(task.delete){
         // add class and remove
         containerTasks.classList.add('delete')
         const remove = document.querySelector(".delete")
         remove.parentNode.removeChild(containerTasks)
 
+        // remove task array
+        tasksList.pop(task)
+
+         // add localStorage
+        localStorage.setItem('list', JSON.stringify(tasksList))
       }
     })
 
   // task checked
   checkedTaskImg.addEventListener("click", () =>{
-    data.checked = true
-    containerTasks.classList.toggle('check')
-    titleTask.classList.toggle('check')
-    // update placeholder
+    task.checked = true
+    containerTasks.classList.toggle('check-text')
+    titleTask.classList.toggle('check-text')
+    checkedTaskImg.classList.toggle('check-img')
 
+    localStorage.setItem('list', JSON.stringify(tasksList))
   })
 
   // clear input
   input.value = ""
   }
+
+  // function loadChecked(data){
+  //   const container = document.getElementsByClassName(data.id)
+
+  //   for(let task of container){
+  //       const classContainer = task.classList[0]
+  //       if(task.getAttribute('checked') === 'true'){
+  //           const btnChecked = task.querySelector('#checke')
+  //           const textTask = task.querySelector('p')
+
+  //           task.setAttribute('class', `${classContainer} task_container taskIsChecked`)
+
+  //           btnChecked.setAttribute('id','unCheck')
+  //           btnChecked.setAttribute('class','btn-check')
+
+  //           textTask.setAttribute('class', '')
+  //       }
+
+  //   }
+  // }
 
 //preventing default event behavior
 let form = document.querySelector('form')
