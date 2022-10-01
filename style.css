@@ -122,12 +122,15 @@ h1{
   background: url(/assets/check.svg) no-repeat center center;
 }
 
-.check-text h2{
-  border: 2px solid rgba(16, 16, 16, 0) !important;
+
+.check-text{
+  border: 2px solid rgba(0, 0, 0, 0) !important;
   color: green;
   text-decoration: line-through;
 }
-
+.check-container{
+  border: 2px solid green !important;
+}
 .remove{
   background: url(/assets/remove.svg)  no-repeat center center;
   width: 35px;

@@ -1,15 +1,20 @@
 let input = document.querySelector("#stringTask")
 let btn = document.querySelector("#btn")
 
+function save(){
+  localStorage.setItem('list', JSON.stringify(tasksList))
+}
 // get tasks localStorage
 window.addEventListener('load', () => {
-  tasksList = JSON.parse(localStorage.getItem('list'))
+  tasksList = JSON.parse(localStorage.getItem('list')) || []
 
   for (let index = 0; index < tasksList.length; index++) {
-    const element = tasksList[index];
+    const element = tasksList[index]
     saveListTask(element)
+    loadChecked(element)
   }
 })
+
 // add tasks
 btn.onclick = function (){
   let inputValue = input.value
@@ -25,7 +30,7 @@ btn.onclick = function (){
     tasksList.push(task)
 
     // add localStorage
-    localStorage.setItem('list', JSON.stringify(tasksList))
+    save()
 
     //remove error
     input.classList.remove("error")
@@ -75,55 +80,46 @@ function saveListTask (task){
     containerTasks.appendChild(removeTaskImg)
 
   // remove task
-    removeTaskImg.addEventListener("click", (task) =>{
+    removeTaskImg.onclick= function (task){
       task.delete = true
-      if(task.delete){
-        // add class and remove
-        containerTasks.classList.add('delete')
-        const remove = document.querySelector(".delete")
-        remove.parentNode.removeChild(containerTasks)
 
-        // remove task array
-        tasksList.pop(task)
+      // add class and remove
+      containerTasks.classList.add('delete')
+      const remove = document.querySelector(".delete")
+      remove.parentNode.removeChild(containerTasks)
 
-         // add localStorage
-        localStorage.setItem('list', JSON.stringify(tasksList))
-      }
-    })
+      // remove task array
+      tasksList.pop(task)
+
+      // add localStorage
+      save()
+    }
 
   // task checked
-  checkedTaskImg.addEventListener("click", () =>{
+  checkedTaskImg.onclick = function (){
     task.checked = true
-    containerTasks.classList.toggle('check-text')
-    titleTask.classList.toggle('check-text')
+    containerTasks.classList.toggle("check-container")
     checkedTaskImg.classList.toggle('check-img')
-
-    localStorage.setItem('list', JSON.stringify(tasksList))
-  })
+    titleTask.classList.toggle('check-text')
+    save()
+  }
 
   // clear input
   input.value = ""
   }
 
-  // function loadChecked(data){
-  //   const container = document.getElementsByClassName(data.id)
+  function loadChecked(element){
+    if(element.checked === true){
+      const containerTasks = document.querySelector('.container-list-tasks')
+      const button = document.querySelector('.check')
+      const containerTitle = document.querySelector('h2')
 
-  //   for(let task of container){
-  //       const classContainer = task.classList[0]
-  //       if(task.getAttribute('checked') === 'true'){
-  //           const btnChecked = task.querySelector('#checke')
-  //           const textTask = task.querySelector('p')
+      containerTasks.classList.add('check-container')
+      containerTitle .classList.toggle('check-text')
+      button.classList.add('check-img')
+    }
+  }
 
-  //           task.setAttribute('class', `${classContainer} task_container taskIsChecked`)
-
-  //           btnChecked.setAttribute('id','unCheck')
-  //           btnChecked.setAttribute('class','btn-check')
-
-  //           textTask.setAttribute('class', '')
-  //       }
-
-  //   }
-  // }
 
 //preventing default event behavior
 let form = document.querySelector('form')
